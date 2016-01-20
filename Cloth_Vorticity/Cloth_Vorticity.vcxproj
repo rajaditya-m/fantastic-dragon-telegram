@@ -137,7 +137,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>C:\Users\Rajaditya\Dropbox\Programs\Research_Code_Windows\Math Library\boost_libs\boost_1_59_0\bin.v2\libs\filesystem\build\msvc-11.0\release\address-model-64\link-static\threading-multi;C:\Users\Rajaditya\Dropbox\Programs\Research_Code_Windows\Math Library\boost_libs\boost_1_59_0\bin.v2\libs\system\build\msvc-11.0\release\address-model-64\link-static\threading-multi;$(ProjectDir)..\..\Math Library\boost_libs\boost_1_59_0\bin.v2\libs\system\build\msvc-11.0\release\address-model-64\link-static\threading-multi;C:\Program Files %28x86%29\Intel\Composer XE 2015\mkl\lib\intel64;$(ProjectDir)..\..\Math Library\boost_libs\boost_1_59_0\bin.v2\libs\filesystem\build\msvc-11.0\release\address-model-64\link-static\threading-multi;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Intel\Composer XE 2015\mkl\lib\intel64;$(ProjectDir)..\libs\boost_1_59_0\libs;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5OpenGL.lib;opengl32.lib;glu32.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
