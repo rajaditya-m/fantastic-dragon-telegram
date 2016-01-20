@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<property>
+	
+	<youngs_modulus>
+	  2.0e1
+	</youngs_modulus>
+	
+	<poisson_ratio> 
+		0.01
+	</poisson_ratio>
+	
+	<time_step> 
+		0.01
+	</time_step>
+	
+	<thickness> 
+		0.05 
+	</thickness>
+	
+	<max_iter> 
+		1000 
+	</max_iter>
+	
+	<friction_coeff> 
+		0.32 
+	</friction_coeff>
+	
+	<damping_param> 
+		0.001
+	</damping_param>
+	
+	<k_bend> 
+		1.0e-4 
+	</k_bend>
+	
+	<density> 
+		0.7
+	</density>
+
+  <k_stiffness>
+    100.0
+  </k_stiffness>
+
+  <quad_damping>
+    0.0
+  </quad_damping>
+
+  <quad_stiffness>
+    0.001
+  </quad_stiffness>
+
+  <rayleigh_damp_coeff>
+    0.01
+  </rayleigh_damp_coeff>
+
+  <rayleigh_mass_coeff>
+    1.0
+  </rayleigh_mass_coeff>
+    
+  <data_dump_location>
+    C:\\Cloth_Sim_Data
+  </data_dump_location>
+  
+  
+  
+  
+  
+	
+</property>
