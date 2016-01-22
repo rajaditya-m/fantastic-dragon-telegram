@@ -46,7 +46,7 @@
   </quad_damping>
 
   <quad_stiffness>
-    0.001
+    0.01
   </quad_stiffness>
 
   <rayleigh_damp_coeff>
