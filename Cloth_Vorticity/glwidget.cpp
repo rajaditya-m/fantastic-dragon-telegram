@@ -13,14 +13,14 @@ GLWidget::GLWidget(QWidget *parent)
 
 	//body and cloth data - renderable objects 
 	body_information_ = new Body_Data("Sphere"
-		,"D://Copy//Cloth_OBJS//ball2.obj",
+		,"OBJFILES//ball2.obj",
 		"body_material.xml");
 	body_information_->setRenderable(true);
 	body_information_->setRenderMode(SHADING);
 	scene_->addRenderObject(body_information_);
 
 	cloth_information_ = new Cloth_Data("Drop_Cloth",
-		"D://Copy//Cloth_OBJS//cloth2.obj",
+		"OBJFILES//cloth2.obj",
 		"cloth_physical_param.xml",
 		"cloth_material.xml");
 	cloth_information_->setRenderable(true);
@@ -28,7 +28,7 @@ GLWidget::GLWidget(QWidget *parent)
 	scene_->addRenderObject(cloth_information_);
 
 	support_ = new InactiveSupportObjects("Poles",
-		"D://Copy//Cloth_OBJS//support.obj",
+		"OBJFILES//support.obj",
 		"body_material.xml");
 	support_->setRenderable(true);
 	support_->setRenderMode(SHADING);
