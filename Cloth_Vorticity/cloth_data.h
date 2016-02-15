@@ -60,6 +60,24 @@ public:
 	//Rendering functions 
 	virtual void render(int frameId);
 
+	//addition functions added by Guowei
+	void setPositions(float* p){
+		for (int i = 0; i < next_step_position.size(); i++){
+			next_step_position[i][0] = p[3*i+0];
+			next_step_position[i][1] = p[3*i+1];
+			next_step_position[i][2] = p[3*i+2];
+		}
+	}
+	float* getPositions(){
+		p_.resize(next_step_position.size()*3);
+		for (int i = 0; i < next_step_position.size(); i++){
+			p_[3*i+0] = next_step_position[i][0];
+			p_[3*i+1] = next_step_position[i][1];
+			p_[3*i+2] = next_step_position[i][2];
+		}
+
+		return &p_[0];
+	}
 
 private:
 	//Contains the external fiel read params to the simulator
@@ -82,5 +100,8 @@ private:
 
 	//Additional Rendering Buffer (will be populated by SIM ENGINE)
 	std::vector<Eigen::Vector3d> perVertexVectorBuffer_;
+
+
+	std::vector<float> p_;
 };
 

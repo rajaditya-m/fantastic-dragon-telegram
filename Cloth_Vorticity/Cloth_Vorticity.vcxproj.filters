@@ -33,6 +33,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h</Extensions>
     </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{16efa96a-d8f6-4d1d-8083-7da9888dc576}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -239,6 +242,30 @@
     </ClInclude>
     <ClInclude Include="InactiveSupportObjects.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BVH.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="BVHPrimitve.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="BBox.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="DISTANCE.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="MY_MATH.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="TIMER.h">
+      <Filter>Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

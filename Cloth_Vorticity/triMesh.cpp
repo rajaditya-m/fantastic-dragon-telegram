@@ -1536,3 +1536,8 @@ void TriMesh::saveAsOBJ(const char* filePrefix) {
 		}
 	}
 }
+
+
+
+//added by Guowei
+

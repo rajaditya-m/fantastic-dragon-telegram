@@ -39,7 +39,7 @@ void SimulationEngine::generate_next_frame()
 	solver_->advance_time_step(clothData_);
 	
 	//Then apply the collision engine
-	//collEngine_->resolve_cloth_body_collisions(cloth_data,body_data);
+	collEngine_->resolveClothBodyCollision(clothData_,bodyData_);
 	
 	//Then resolve self collisions 
 	//collEngine_->resolve_cloth_cloth_collisions(cloth_data);

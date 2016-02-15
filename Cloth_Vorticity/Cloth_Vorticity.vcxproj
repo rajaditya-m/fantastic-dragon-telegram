@@ -237,13 +237,17 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BBox.h" />
     <ClInclude Include="body_data.h" />
+    <ClInclude Include="BVH.h" />
+    <ClInclude Include="BVHPrimitve.h" />
     <ClInclude Include="CGSolver.h" />
     <ClInclude Include="cloth_data.h" />
     <ClInclude Include="cloth_properties.h" />
     <ClInclude Include="CollisionEngine.h" />
     <ClInclude Include="constitutive_models.h" />
     <ClInclude Include="debug_funcs.h" />
+    <ClInclude Include="DISTANCE.h" />
     <ClInclude Include="dynamics_solver_interface.h" />
     <ClInclude Include="edge.h" />
     <ClInclude Include="fem_solver.h" />
@@ -259,6 +263,7 @@
     <ClInclude Include="linearSolver.h" />
     <ClInclude Include="math_func.h" />
     <ClInclude Include="mesh_material.h" />
+    <ClInclude Include="MY_MATH.h" />
     <ClInclude Include="PardisoSolver.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="Scene.h" />
@@ -266,9 +271,12 @@
     <ClInclude Include="sparseMatrix.h" />
     <ClInclude Include="sparseSolverAvailability.h" />
     <ClInclude Include="struct_decls.h" />
+    <ClInclude Include="TIMER.h" />
     <ClInclude Include="triangles.h" />
     <ClInclude Include="triMesh.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="ui_custom_mods.h" />
+    <ClInclude Include="Vector3.h" />
     <CustomBuild Include="glwidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing glwidget.h...</Message>

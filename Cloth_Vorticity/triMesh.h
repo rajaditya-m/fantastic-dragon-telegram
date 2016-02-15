@@ -109,6 +109,41 @@ public:
 	void update_voxelization();					//This takes every frame data that is present and updates the voxelization
 	void voxelize_frame(int frame_id);			//This takes one frame id and voxelizes it 
 
+
+	//addition functions added by Guowei
+	std::vector<int> getTriangles(){
+		std::vector<int> t;
+		t.clear();
+		for (int i = 0; i < mesh_data.size(); i++){
+			t.push_back(mesh_data[i].a);
+			t.push_back(mesh_data[i].b);
+			t.push_back(mesh_data[i].c);
+		}
+		return t;
+	}
+	
+	float* getPositions(){
+		int currentFrame = point_data.size()-1;
+		p_.resize(point_data[currentFrame].size()*3);
+		for (int i = 0; i < point_data[currentFrame].size(); i++){
+			p_[3*i+0] = (point_data[currentFrame][i][0]);
+			p_[3*i+1] = (point_data[currentFrame][i][1]);
+			p_[3*i+2] = (point_data[currentFrame][i][2]);
+		}
+
+		return &p_[0];
+	}
+	void setPositions(float* p){
+		int currentFrame = point_data.size()-1;
+		for (int i = 0; i < point_data[currentFrame].size(); i++){
+			point_data[currentFrame][i][0] = p[3*i+0];
+			point_data[currentFrame][i][1] = p[3*i+1];
+			point_data[currentFrame][i][2] = p[3*i+2];
+		}
+	}
+
+
+
 private:
 	//Mesh should have a name 
 	std::string name_;
@@ -155,6 +190,6 @@ private:
 	std::vector< std::vector< std::vector <Voxel> > > edge_to_voxel;
 	std::vector< std::vector< Voxel > > point_to_voxel;
 
-
+	std::vector<float> p_;
 };
 
