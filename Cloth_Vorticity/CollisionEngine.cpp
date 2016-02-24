@@ -23,14 +23,19 @@ void CollisionEngine::resolveClothBodyCollision(Cloth_Data* cloth,Body_Data* bod
 	int lastFrameId = cloth->getMesh()->get_number_frames();
 
 	int numPoints = cloth->getMesh()->get_number_vertices();
+	float time_step = cloth->get_property_obj()->get_timestep();
 	float* clothPos = cloth->getPositions();
-	
+	float* clothOldPos = cloth->getMesh()->getPositions();
+	float* clothVel = cloth->getVelocities();
+
 	int numTriangles = body->getMesh()->get_number_triangles();
 	float* bodyPos = body->getMesh()->getPositions();
 	std::vector<int> triIndex = body->getMesh()->getTriangles();
 
-	run(clothPos,numPoints, bodyPos, &triIndex[0] ,numTriangles);
+	//run(clothPos,numPoints, bodyPos, &triIndex[0] ,numTriangles);
+	run(clothOldPos,clothPos,clothVel,numPoints,bodyPos,&triIndex[0],numTriangles,time_step);
 	cloth->setPositions(clothPos);
+	cloth->setVelocities(clothVel);
 }
 
 

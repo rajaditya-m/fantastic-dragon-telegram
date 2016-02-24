@@ -68,6 +68,14 @@ public:
 			next_step_position[i][2] = p[3*i+2];
 		}
 	}
+	void setVelocities(float* v){
+		for (int i = 0; i < next_step_velocity.size(); i++){
+			next_step_velocity[i][0] = v[3*i+0];
+			next_step_velocity[i][1] = v[3*i+1];
+			next_step_velocity[i][2] = v[3*i+2];
+		}
+	}
+
 	float* getPositions(){
 		p_.resize(next_step_position.size()*3);
 		for (int i = 0; i < next_step_position.size(); i++){
@@ -77,6 +85,15 @@ public:
 		}
 
 		return &p_[0];
+	}
+	float* getVelocities(){
+		v_.resize(next_step_velocity.size()*3);
+		for (int i = 0; i < next_step_velocity.size(); i++){
+			v_[3*i+0] = next_step_velocity[i][0];
+			v_[3*i+1] = next_step_velocity[i][1];
+			v_[3*i+2] = next_step_velocity[i][2];
+		}
+		return &v_[0];
 	}
 
 private:
@@ -103,5 +120,6 @@ private:
 
 
 	std::vector<float> p_;
+	std::vector<float> v_;
 };
 

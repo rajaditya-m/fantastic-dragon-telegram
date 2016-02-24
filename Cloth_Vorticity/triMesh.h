@@ -121,7 +121,6 @@ public:
 		}
 		return t;
 	}
-	
 	float* getPositions(){
 		int currentFrame = point_data.size()-1;
 		p_.resize(point_data[currentFrame].size()*3);
@@ -132,6 +131,17 @@ public:
 		}
 
 		return &p_[0];
+	}
+	void* getOldPositions(){
+		int previousFrame = point_data.size()-2;
+		pOld_.resize(point_data[previousFrame].size()*3);
+		for (int i = 0; i < point_data[previousFrame].size(); i++){
+			pOld_[3*i+0] = (point_data[previousFrame][i][0]);
+			pOld_[3*i+1] = (point_data[previousFrame][i][1]);
+			pOld_[3*i+2] = (point_data[previousFrame][i][2]);
+		}
+
+		return &pOld_[0];	
 	}
 	void setPositions(float* p){
 		int currentFrame = point_data.size()-1;
@@ -191,5 +201,6 @@ private:
 	std::vector< std::vector< Voxel > > point_to_voxel;
 
 	std::vector<float> p_;
+	std::vector<float> pOld_;
 };
 
