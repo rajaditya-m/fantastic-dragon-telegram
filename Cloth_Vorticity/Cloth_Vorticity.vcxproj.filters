@@ -267,6 +267,9 @@
     <ClInclude Include="TIMER.h">
       <Filter>Collision</Filter>
     </ClInclude>
+    <ClInclude Include="INTERSECTION.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="cloth_physical_param.xml" />

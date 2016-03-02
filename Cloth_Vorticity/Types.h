@@ -2,7 +2,7 @@
 #define Types_H
 #include <vector>
 
-#define HIGH_PRECISION
+//#define HIGH_PRECISION
 
 #ifdef HIGH_PRECISION
     typedef double ScalarType;
