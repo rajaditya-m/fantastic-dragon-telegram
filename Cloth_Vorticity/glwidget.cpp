@@ -27,6 +27,11 @@ GLWidget::GLWidget(QWidget *parent)
 	cloth_information_->setRenderMode(SHADING);
 	scene_->addRenderObject(cloth_information_);
 
+	yarnOverlay_ = new YarnOverlay(200,200,cloth_information_);
+	yarnOverlay_->setRenderable(true);
+	yarnOverlay_->setRenderMode(WIREFRAME);
+	scene_->addRenderObject(yarnOverlay_);
+
 	support_ = new InactiveSupportObjects("Poles",
 		"OBJFILES//support.obj",
 		"body_material.xml");
@@ -47,11 +52,10 @@ GLWidget::GLWidget(QWidget *parent)
 	collisionEngine_ = new CollisionEngine();
 	
 	if(fem_solver_) {
-		//sim_engine_ = new SimulationEngine(cloth_information_,fem_solver_,body_information_);
-		sim_engine_ = new SimulationEngine(cloth_information_,fem_solver_,body_information_,collisionEngine_);
+		sim_engine_ = new SimulationEngine(cloth_information_,fem_solver_,body_information_,collisionEngine_,yarnOverlay_);
 	}
 	else
-		sim_engine_ = new SimulationEngine(cloth_information_,mass_spring_solver_,body_information_,collisionEngine_);
+		sim_engine_ = new SimulationEngine(cloth_information_,mass_spring_solver_,body_information_,collisionEngine_,yarnOverlay_);
 
 
 	//Animaton timer

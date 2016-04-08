@@ -131,6 +131,12 @@
     <ClCompile Include="InactiveSupportObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VolumeInformation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="YarnOverlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="cloth_vorticity.h">
@@ -266,6 +272,12 @@
     </ClInclude>
     <ClInclude Include="TIMER.h">
       <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="VolumeInformation.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="YarnOverlay.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

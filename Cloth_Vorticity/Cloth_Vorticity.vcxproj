@@ -195,6 +195,8 @@
     <ClCompile Include="sparseMatrix.cpp" />
     <ClCompile Include="triangles.cpp" />
     <ClCompile Include="triMesh.cpp" />
+    <ClCompile Include="VolumeInformation.cpp" />
+    <ClCompile Include="YarnOverlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="cloth_vorticity.h">
@@ -277,6 +279,8 @@
     <ClInclude Include="Types.h" />
     <ClInclude Include="ui_custom_mods.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="VolumeInformation.h" />
+    <ClInclude Include="YarnOverlay.h" />
     <CustomBuild Include="glwidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing glwidget.h...</Message>

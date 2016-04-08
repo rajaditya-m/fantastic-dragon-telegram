@@ -21,7 +21,7 @@
 
 #include <QGLWidget>
 
-
+#include "VolumeInformation.h"
 #include "triangles.h"
 #include "edge.h"
 #include "global_typedefs.h"
@@ -33,6 +33,7 @@
 
 class TriMesh
 {
+
 public:
 	//Constructor for Clothing (with UV)
 	TriMesh(const char* meshName,
@@ -57,8 +58,12 @@ public:
 			const char* material_xml,
 			int num_frames,
 			float pdfs);
-
+	TriMesh();
+	TriMesh(float pdfs);
 	~TriMesh(void);
+
+	//This is used for non constructor initialization of the mesh 
+	void initializeDynamicMesh(std::vector<Eigen::Vector3d> &pvec, std::vector<int> triangles, const char* meshName, const char* material_xml);
 
 	//More important functions 
 	int get_number_vertices() const 									{ return point_data[0].size() ;			}
@@ -202,5 +207,7 @@ private:
 
 	std::vector<float> p_;
 	std::vector<float> pOld_;
+
+	std::vector<VolumeInformation> volInfo_;
 };
 

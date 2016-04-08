@@ -155,3 +155,17 @@ inline Eigen::Vector3d findOrthonormalVector(Eigen::Vector3d &vec)
 	result.normalize();
   return result;
 }
+
+inline void barycentricCoods(Eigen::Vector3d p, Eigen::Vector3d a, Eigen::Vector3d b, Eigen::Vector3d c, float &u, float &v, float &w)
+{
+    Eigen::Vector3d v0 = b - a, v1 = c - a, v2 = p - a;
+    float d00 = v0.dot(v0);
+    float d01 = v0.dot(v1);
+    float d11 = v1.dot(v1);
+    float d20 = v2.dot(v0);
+    float d21 = v2.dot(v1);
+    float denom = d00 * d11 - d01 * d01;
+    v = (d11 * d20 - d01 * d21) / denom;
+    w = (d00 * d21 - d01 * d20) / denom;
+    u = 1.0f - v - w;
+}

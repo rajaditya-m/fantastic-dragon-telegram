@@ -2,6 +2,19 @@
 #include "geom_funcs.h"
 #include "debug_funcs.h"
 
+//Default constructor
+TriMesh::TriMesh()
+	:CONST_SCALING(1.0)
+{
+	
+}
+
+TriMesh::TriMesh(float pdfs)
+	:CONST_SCALING(pdfs)
+{
+	
+}
+
 //This is the version that reads a single frame with a single filename with texture coordinates 
 TriMesh::TriMesh(const char* meshName,
 				 const char* file_location_vertex,
@@ -361,6 +374,7 @@ TriMesh::TriMesh(const char* meshName,
 		}
 
 		point_data.push_back(pointvec_f0);
+		volInfo_.push_back(VolumeInformation(point_data[0]));
 
 		//Add the bounding box and super bounding box (for a single frame this is the bounding box)
 		bounding_box.push_back(std::make_pair(min_bb,max_bb));
@@ -909,6 +923,192 @@ TriMesh::TriMesh(const char* meshName,
 TriMesh::~TriMesh(void)
 {
 }
+
+void TriMesh::initializeDynamicMesh(std::vector<Eigen::Vector3d>& pvec, std::vector<int> triangles, const char* meshName, const char* material_xml)
+	{
+	name_ = meshName ;
+	has_uv_coods_ = false;
+	static_ = false;
+	voxelized_ = false;
+	voxel_grid = new Grid();
+	int num_vertices;
+	int a,b,c;
+	//std::vector<Eigen::Vector3d> pointvec_f0;
+	std::vector<Eigen::Vector3d> normalvec_f0;
+	Eigen::Vector3d min_bb(99999.0f,99999.0f,99999.0f);
+	Eigen::Vector3d max_bb(-99999.0f,-99999.0f,-99999.0f);
+	
+	average_edge_length_ = 0.0f;
+	int num_counted_edges = 0;
+	longest_edge_length_ = 0.0f;
+	static_ = false;
+
+	std::cout <<"DDD";
+
+	num_vertices = pvec.size();
+	normalvec_f0.resize(num_vertices,Eigen::Vector3d::Zero());
+	part_of_mesh.resize(num_vertices,false);
+
+	//Find the bounding box here
+	for(int i=0;i<num_vertices;i++)
+	{
+		Eigen::Vector3d temp_point = pvec[i];
+		if(temp_point.x()>max_bb.x())
+			max_bb(0) = temp_point.x();
+		if(temp_point.y()>max_bb.y())
+			max_bb(1) = temp_point.y();
+		if(temp_point.z()>max_bb.z())
+			max_bb(2) = temp_point.z();
+		if(temp_point.x()<min_bb.x())
+			min_bb(0) = temp_point.x();
+		if(temp_point.y()<min_bb.y())
+			min_bb(1) = temp_point.y();
+		if(temp_point.z()<min_bb.z())
+			min_bb(2) = temp_point.z();
+	}
+
+	//Do the triangle related operations here 
+	for(int t=0;t<(triangles.size()/3);t++)
+	{
+		a = triangles[3*t+0];
+		b = triangles[3*t+1];
+		c = triangles[3*t+2];
+
+		Eigen::Vector3d v_ab = pvec[b] - pvec[a];
+		Eigen::Vector3d v_ac = pvec[c] - pvec[a];
+		Eigen::Vector3d v_bc = pvec[c] - pvec[b];
+
+		float ab = v_ab.norm();
+		float bc = v_bc.norm();
+		float ac = v_ac.norm();
+
+		if(ab>longest_edge_length_)
+			longest_edge_length_ = ab;
+
+		if(bc>longest_edge_length_)
+			longest_edge_length_ = bc;
+
+		if(ac>longest_edge_length_)
+			longest_edge_length_ = ac;
+
+		average_edge_length_ += (ab+bc+ac);
+		num_counted_edges += 3;
+
+		Eigen::Vector3d tri_norm_abc = Eigen::Vector3d::Zero();
+		tri_norm_abc = v_ab.cross(v_ac);
+		tri_norm_abc.normalize();
+
+		normalvec_f0[a] += tri_norm_abc;
+		normalvec_f0[b] += tri_norm_abc;
+		normalvec_f0[c] += tri_norm_abc;
+
+		Triangles temp_tri;
+		temp_tri.add(a,b,c);
+		temp_tri.addTriangleNormal(tri_norm_abc);
+		mesh_data.push_back(temp_tri);
+
+		part_of_mesh[a] = true;
+		part_of_mesh[b] = true;
+		part_of_mesh[c] = true;
+
+	}
+
+	point_data.push_back(pvec);
+	volInfo_.push_back(VolumeInformation(point_data[0]));
+
+	//Add the bounding box and super bounding box (for a single frame this is the bounding box)
+	bounding_box.push_back(std::make_pair(min_bb,max_bb));
+	super_bounding_box = std::make_pair(min_bb,max_bb);
+
+	for(int p=0;p<pvec.size();p++)
+		{
+		if(!part_of_mesh[p])
+			continue;
+		normalvec_f0[p].normalize();
+		}
+	normal_data.push_back(normalvec_f0);
+
+	//Calculate the values of the statistics
+	average_edge_length_ /= num_counted_edges;
+
+	//Populate the edge data-structure
+	for(int t=0;t<mesh_data.size();t++)
+		{
+		int a = mesh_data[t].a;
+		int b = mesh_data[t].b;
+		int c = mesh_data[t].c;
+
+		Edge e1;
+		e1.add_edges(a,b);
+		Edge e2;
+		e2.add_edges(b,c);
+		Edge e3;
+		e3.add_edges(c,a);
+
+		std::set<Edge>::iterator it = edge_list.find(e1);
+		if(it==edge_list.end())
+			{
+			e1.add_triangle(t);
+			edge_list.insert(e1);
+			}
+		else
+			{
+			const Edge &re = *it;
+			Edge &e = const_cast<Edge&>(re);
+			bool status = e.add_triangle(t);
+			if(!status)
+				std::cout <<  "[WARNING] Non-Manifold mesh detected.\n";
+			}
+
+		it = edge_list.find(e2);
+		if(it==edge_list.end())
+			{
+			e2.add_triangle(t);
+			edge_list.insert(e2);
+			}
+		else
+			{
+			const Edge &re = *it;
+			Edge &e = const_cast<Edge&>(re);
+			bool status = e.add_triangle(t);
+			if(!status)
+				std::cout << "[WARNING] Non-Manifold mesh detected.\n";
+			}
+
+		it = edge_list.find(e3);
+		if(it==edge_list.end())
+			{
+			e3.add_triangle(t);
+			edge_list.insert(e3);
+			}
+		else
+			{
+			const Edge &re = *it;
+			Edge &e = const_cast<Edge&>(re);
+			bool status = e.add_triangle(t);
+			if(!status)
+				std::cout << "[WARNING] Non-Manifold mesh detected.\n";
+			}
+		}
+
+	//Now assign an edge index this is needed for the voxelization 
+	std::set<Edge>::iterator it;
+	int edge_counter = 0;
+	for(it = edge_list.begin(); it != edge_list.end() ; it++)
+		{
+		const Edge &ce = *it;
+		Edge &e = const_cast<Edge&>(ce);
+		e.set_index(edge_counter);
+		edge_counter++;
+		}
+	//This is the material property 
+	material = new Mesh_Material(material_xml);
+
+	//Last modification 
+	edgeVector_ = std::vector<Edge>(edge_list.begin(),edge_list.end());
+	edgeVectorSize_ = edgeVector_.size();
+	}
+
 
 // Some of the accessor functions modified for use with static meshes
 Eigen::Vector3d TriMesh::get_point_data(int idx, int frame)	const

@@ -46,7 +46,7 @@
   </quad_damping>
 
   <quad_stiffness>
-    0.01
+    0.001
   </quad_stiffness>
 
   <rayleigh_damp_coeff>
@@ -58,7 +58,7 @@
   </rayleigh_mass_coeff>
     
   <data_dump_location>
-    C:\\Cloth_Sim_Data
+    E:\\OBJ\\Cloth_Sim_Data
   </data_dump_location>
   
   

@@ -1,31 +1,34 @@
 #include "SimulationEngine.h"
 
 
-SimulationEngine::SimulationEngine(Cloth_Data* cloth_data,ImplicitFEMSolver* solver,Body_Data* body_data,CollisionEngine* collEngine)
+SimulationEngine::SimulationEngine(Cloth_Data* cloth_data,ImplicitFEMSolver* solver,Body_Data* body_data,CollisionEngine* collEngine, YarnOverlay* yo)
 {
 	clothData_ = cloth_data;
 	solver_ = solver;
 	solver_->initialize(clothData_);
 	bodyData_ = body_data;
 	collEngine_ = collEngine;
+	yarnOverlay_ = yo;
 }
 
-SimulationEngine::SimulationEngine(Cloth_Data* cloth_data,ImplicitMassSpringSolver* solver,Body_Data* body_data,CollisionEngine* collEngine)
+SimulationEngine::SimulationEngine(Cloth_Data* cloth_data,ImplicitMassSpringSolver* solver,Body_Data* body_data,CollisionEngine* collEngine, YarnOverlay* yo)
 {
 	clothData_ = cloth_data;
 	solver_ = solver;
 	solver_->initialize(clothData_);
 	bodyData_ = body_data;
 	collEngine_ = collEngine;
+	yarnOverlay_ = yo;
 }
 
-SimulationEngine::SimulationEngine(Cloth_Data* cloth_data,ImplicitHyperElasticFEMSolver* solver,Body_Data* body_data,CollisionEngine* collEngine)
+SimulationEngine::SimulationEngine(Cloth_Data* cloth_data,ImplicitHyperElasticFEMSolver* solver,Body_Data* body_data,CollisionEngine* collEngine, YarnOverlay* yo)
 {
 	clothData_ = cloth_data;
 	solver_ = solver;
 	solver_->initialize(clothData_);
 	bodyData_ = body_data;
 	collEngine_ = collEngine;
+	yarnOverlay_ = yo;
 }
 
 
@@ -49,6 +52,11 @@ void SimulationEngine::generate_next_frame()
 
 	//Control the flow of parameter to the cloth engine depending upon the type of rendering 
 	populatePerVertexBuffer();
+
+	//This is to add the yarn overlab portion 
+	if(yarnOverlay_)
+		yarnOverlay_->addFrameInformation(clothData_);
+
 }
 
 //We will implement this function later on as per the need. For now this does nothing. 

@@ -15,6 +15,7 @@
 #include "SimulationEngine.h"
 #include "Scene.h"
 #include "CollisionEngine.h"
+#include "YarnOverlay.h"
 
 
 class GLWidget : public QGLWidget
@@ -76,6 +77,8 @@ private:
 	ImplicitMassSpringSolver* mass_spring_solver_;
 	SimulationEngine* sim_engine_;
 	CollisionEngine* collisionEngine_;
+	YarnOverlay *yarnOverlay_;
+
 
 	//Animation timer
 	QTimer* animation_timer;

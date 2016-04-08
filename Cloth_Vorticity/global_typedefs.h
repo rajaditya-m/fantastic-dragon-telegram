@@ -23,4 +23,4 @@ typedef Eigen::Matrix<int,6,1> Vector6d;
 typedef Eigen::Vector3d Voxel;
 
 typedef enum RMode {WIREFRAME, SHADING, HMAP_VELOCITY,HMAP_ACCLRN,HMAP_SHEAR_FORCE,HMAP_BENDING_FORCE,HMAP_GRAVITY_FORCE,HMAP_DAMPING_FORCE} RenderMode;
-typedef enum ScId {UNDEFINED,CLOTH,COLL_OBJ}  SceneObjectId;
+typedef enum ScId {UNDEFINED,CLOTH,COLL_OBJ,YARN_OVERLAY}  SceneObjectId;

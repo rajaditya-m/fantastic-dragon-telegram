@@ -109,7 +109,6 @@ Cloth_Data::Cloth_Data( const char* name,
 	next_step_position.resize(num_vertices,Eigen::Vector3d::Zero());
 	next_step_velocity.resize(num_vertices,Eigen::Vector3d::Zero());
 
-	std::cout << "Tilder";
 
 	for(int t=0;t<num_triangles;t++)
 	{
