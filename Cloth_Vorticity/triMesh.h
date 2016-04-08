@@ -126,6 +126,24 @@ public:
 		}
 		return t;
 	}
+	std::vector<int> getEdges(){
+		std::vector<int> e;
+		e.clear();
+		for (int i = 0; i < edgeVector_.size(); i++){
+			e.push_back(edgeVector_[i].start);
+			e.push_back(edgeVector_[i].end);
+		}
+		return e;
+	}
+	std::vector<int> getET(){
+		std::vector<int> et;
+		et.resize(2 * edgeVector_.size());
+		for (int i = 0; i < edgeVector_.size(); i++){		
+			et[2*i+0] = edgeVector_[i].adj_tri_1;
+			et[2*i+0] = edgeVector_[i].adj_tri_2 ;
+		}
+		return et;
+	}
 	float* getPositions(){
 		int currentFrame = point_data.size()-1;
 		p_.resize(point_data[currentFrame].size()*3);
@@ -156,7 +174,6 @@ public:
 			point_data[currentFrame][i][2] = p[3*i+2];
 		}
 	}
-
 
 
 private:

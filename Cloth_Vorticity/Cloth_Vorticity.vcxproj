@@ -262,6 +262,7 @@
     <ClInclude Include="ImplicitMassSpringSolver.h" />
     <ClInclude Include="InactiveSupportObjects.h" />
     <ClInclude Include="insertRows.h" />
+    <ClInclude Include="INTERSECTION.h" />
     <ClInclude Include="linearSolver.h" />
     <ClInclude Include="math_func.h" />
     <ClInclude Include="mesh_material.h" />
